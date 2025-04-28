@@ -43,8 +43,25 @@ class SalesReportAPIView(generics.ListAPIView):
     
     def list(self, request, *args, **kwargs):
         from django.db.models import Sum, Count
+        from django.db import models
         queryset = self.get_queryset()
         overall_sales = queryset.aggregate(
             total_revenue=Sum('total_amount'),
             total_bills=Count('id')
         )
+        average_bill_value = overall_sales['total_revenue'] / overall_sales['total_bills'] if overall_sales['total_bills'] else 0
+        staff_sales = queryset.values('staff').annotate(
+            staff_name=models.F('staff__username'),
+            bills_count=Count('id'),
+            revenue_generated=Sum('total_amount')
+        ).order_by('-revenue_generated')
+        response_data = {
+            "overall_sales": {
+                "total_revenue": overall_sales['total_revenue'] or 0,
+                "total_bills": overall_sales['total_bills'] or 0,
+                "average_bill_value": average_bill_value
+            },
+            "staff_sales": list(staff_sales),
+        }
+
+        return Response(response_data)
