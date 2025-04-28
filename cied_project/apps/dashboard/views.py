@@ -5,6 +5,7 @@ from apps.authentication.permissions import IsAdmin
 from rest_framework.permissions import IsAuthenticated
 from apps.dashboard.serializers import MedicineStockSerializer
 from apps.billing.serializers import BillSerializer
+from apps.billing.models import Bill
 
 # Create your views here.
 class StockDetailsAPIView(generics.ListAPIView):
