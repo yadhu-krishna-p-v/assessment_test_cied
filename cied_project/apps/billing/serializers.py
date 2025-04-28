@@ -10,13 +10,13 @@ class BillItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = BillItem
-        fields = ['id', 'medicine', 'quantity', 'price_per_item', 'total_price']
+        fields = ['id', 'medicine', 'quantity', 'price', 'subtotal']
         
 
 class BillSerializer(serializers.ModelSerializer):
     items = BillItemSerializer(many=True, read_only=True)
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    staff = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
     class Meta:
         model = Bill
-        fields = ['id', 'user', 'total_amount', 'items', 'created_at']
+        fields = ['id', 'staff', 'customer_name', 'total_amount', 'items', 'created_at']
