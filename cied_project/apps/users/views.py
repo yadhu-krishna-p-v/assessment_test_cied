@@ -5,16 +5,17 @@ from apps.authentication.models import User
 from apps.authentication.serializers import RegisterSerializer
 from apps.authentication.permissions import IsAdmin
 from rest_framework.permissions import IsAuthenticated
+from apps.users.serializers import UserSerializer
 
 
 class UserListView(generics.ListCreateAPIView):
-    serializer_class = RegisterSerializer
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     permission_classes = [IsAuthenticated, IsAdmin]
-    authentication_classes = []
 
-    def get(self, request, *args, **kwargs):
-        users = User.objects.all()
-        serializer = self.get_serializer(users, many=True)
+    def list(self, request, *args, **kwargs):
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
 
 
@@ -22,7 +23,6 @@ class UserCrudAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
     permission_classes = [IsAuthenticated, IsAdmin]
-    authentication_classes = []
     
     def get(self, request, *args, **kwargs):
         user = self.get_object()
