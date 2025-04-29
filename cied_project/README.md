@@ -35,3 +35,20 @@ cd cied_project
    bash
    python manage.py runserver
    ```
+
+
+## Running the Project with Docker Compose
+
+This project includes a `docker-compose.yml` for easy setup using Docker.
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/) installed
+- [Docker Compose](https://docs.docker.com/compose/) installed (comes with Docker Desktop)
+
+### Steps to Run
+
+1. Build and start the containers:
+   ```bash
+   docker-compose up --build
+   ```
