@@ -9,6 +9,7 @@ This is a RESTful API built with Django and Django REST Framework. It includes f
 
 ```bash
 git clone https://github.com/yadhu-krishna-p-v/assessment_test_cied.git
+git checkout master
 cd cied_project
 ```
 
