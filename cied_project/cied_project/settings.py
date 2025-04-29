@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'apps.billing',
     'apps.dashboard',
     'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
